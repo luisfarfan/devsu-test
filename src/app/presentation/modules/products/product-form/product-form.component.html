@@ -1,0 +1,98 @@
+<div class="bg-white p-6 rounded shadow-lg w-full max-w-xl mx-auto">
+  <!-- Título -->
+  <h2 class="text-xl font-semibold mb-4">Título del Formulario</h2>
+
+  <!-- Contenedor principal -->
+  <form
+    (ngSubmit)="createProduct()"
+    [formGroup]="form"
+    class="flex flex-wrap -mx-2"
+  >
+    <!-- Div con label e input -->
+    <div class="w-1/2 px-2 mb-4">
+      <label for="input-id" class="block mb-2">ID</label>
+      <input
+        type="text"
+        formControlName="id"
+        id="input-id"
+        placeholder="ID"
+        class="border p-2 rounded w-full"
+      />
+    </div>
+
+    <div class="w-1/2 px-2 mb-4">
+      <label for="input-name" class="block mb-2">Nombre</label>
+      <input
+        type="text"
+        formControlName="name"
+        id="input-name"
+        placeholder="Tarjeta de crédito"
+        class="border p-2 rounded w-full"
+      />
+    </div>
+
+    <div class="w-1/2 px-2 mb-4">
+      <label for="input1" class="block mb-2">Descripción</label>
+      <input
+        type="text"
+        formControlName="description"
+        id="input1"
+        placeholder="Input 1"
+        class="border p-2 rounded w-full"
+      />
+    </div>
+
+    <div class="w-1/2 px-2 mb-4">
+      <label for="input-logo" class="block mb-2">Logo</label>
+      <input
+        type="text"
+        formControlName="logo"
+        id="input-logo"
+        placeholder="image.png"
+        class="border p-2 rounded w-full"
+      />
+    </div>
+
+    <div class="w-1/2 px-2 mb-4">
+      <label for="input-date-release" class="block mb-2"
+        >Fecha liberación</label
+      >
+      <input
+        type="date"
+        formControlName="date_release"
+        id="input-date-release"
+        placeholder="22/02/2023"
+        class="border p-2 rounded w-full"
+      />
+    </div>
+
+    <div class="w-1/2 px-2 mb-4">
+      <label for="input-date-revision" class="block mb-2">Fecha revisión</label>
+      <input
+        type="date"
+        formControlName="date_revision"
+        id="input-date-revision"
+        placeholder="22/02/2024"
+        class="border p-2 rounded w-full"
+      />
+    </div>
+
+    <div class="flex justify-center space-x-4 w-full">
+      <button
+        (click)="form.reset()"
+        class="py-2 px-4 rounded bg-gray-400 text-white hover:bg-gray-500"
+      >
+        REINICIAR
+      </button>
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        [ngClass]="{ 'opacity-50 cursor-not-allowed': form.invalid }"
+        class="py-2 px-4 rounded bg-yellow-500 text-white hover:bg-yellow-600"
+      >
+        ENVIAR
+      </button>
+    </div>
+    <!-- ... estructura similar para otros 5 divs ... -->
+  </form>
+</div>

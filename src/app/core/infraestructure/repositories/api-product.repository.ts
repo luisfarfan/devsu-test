@@ -13,12 +13,44 @@ export class ApiProductRepository extends ProductRepository {
     super();
   }
 
-  override getProducts(): Observable<Product[]> {
+  private _createAuthorHeader() {
     const headers = new HttpHeaders({
-      authorId: 50
+      authorId: 50,
     });
 
     const requestOptions = { headers: headers };
+
+    return requestOptions;
+  }
+
+  override getProducts(): Observable<Product[]> {
+    const requestOptions = this._createAuthorHeader();
     return this.http.get<Product[]>(ProductEndpoints.getAll, requestOptions);
+  }
+
+  override createProduct(product: Product): Observable<Product> {
+    const requestOptions = this._createAuthorHeader();
+    return this.http.post<Product>(
+      ProductEndpoints.create,
+      product,
+      requestOptions
+    );
+  }
+
+  override editProduct(id: string, product: Product): Observable<Product> {
+    const requestOptions = this._createAuthorHeader();
+    return this.http.put<Product>(
+      ProductEndpoints.update(id),
+      product,
+      requestOptions
+    );
+  }
+
+  override deleteProduct(id: string): Observable<Product> {
+    const requestOptions = this._createAuthorHeader();
+    return this.http.delete<Product>(
+      ProductEndpoints.delete(id),
+      requestOptions
+    );
   }
 }

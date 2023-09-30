@@ -1,14 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductRepository } from 'src/app/core/adapters';
-import { ApiProductRepository } from 'src/app/core/infraestructure/repositories/api-product.repository';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from 'src/app/ui/search/search.component';
 import { TableComponent } from 'src/app/ui/table/table.component';
+import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 
 @NgModule({
-  declarations: [ProductsListComponent],
-  imports: [CommonModule, SearchComponent, TableComponent],
-  exports: [ProductsListComponent],
+  declarations: [ProductsListComponent, ProductFormComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SearchComponent,
+    TableComponent,
+  ],
+  exports: [ProductsListComponent, ProductFormComponent],
 })
 export class ProductsModule {}

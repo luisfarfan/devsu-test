@@ -44,6 +44,7 @@ export class ProductsListComponent implements OnChanges {
   }
 
   filterProducts(querySearch: string) {
+    console.log(querySearch)
     this.querySearch = querySearch;
     if (this.products?.length) {
       this.filteredProducts = this.querySearch

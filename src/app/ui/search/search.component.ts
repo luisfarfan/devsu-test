@@ -27,7 +27,6 @@ export class SearchComponent {
         debounceTime(this.debounceTime),
         map((value) => value?.trim() || ''),
         tap((value) => {
-          console.log('value', value);
           this.search.emit(value);
         })
       )
