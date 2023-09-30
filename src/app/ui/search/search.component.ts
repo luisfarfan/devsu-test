@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, map } from 'rxjs';
+import { debounceTime, map, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -21,10 +21,16 @@ export class SearchComponent {
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
-    this.searchControl.valueChanges.pipe(
-      takeUntilDestroyed(),
-      debounceTime(this.debounceTime),
-      map((value) => value?.trim() || '')
-    );
+    this.searchControl.valueChanges
+      .pipe(
+        takeUntilDestroyed(),
+        debounceTime(this.debounceTime),
+        map((value) => value?.trim() || ''),
+        tap((value) => {
+          console.log('value', value);
+          this.search.emit(value);
+        })
+      )
+      .subscribe();
   }
 }
