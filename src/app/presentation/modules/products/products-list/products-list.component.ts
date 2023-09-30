@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from 'src/app/core/domain';
 import { TableHeader } from 'src/app/ui/table/ui-table.models';
 
@@ -7,8 +7,12 @@ import { TableHeader } from 'src/app/ui/table/ui-table.models';
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
-export class ProductsListComponent {
+export class ProductsListComponent implements OnChanges {
   @Input() products: Product[] | null = [];
+
+  filteredProducts: Product[] = [];
+
+  querySearch = '';
 
   headers: TableHeader<Product>[] = [
     {
@@ -32,4 +36,23 @@ export class ProductsListComponent {
       label: 'Fecha de reestructuración',
     },
   ];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['products'] && this.products?.length) {
+      this.filteredProducts = [...this.products];
+    }
+  }
+
+  filterProducts(querySearch: string) {
+    this.querySearch = querySearch;
+    if (this.products?.length) {
+      this.filteredProducts = this.querySearch
+        ? this.products.filter((product) => {
+            return product.name
+              .toLowerCase()
+              .includes(this.querySearch.toLowerCase());
+          })
+        : [...this.products];
+    }
+  }
 }
