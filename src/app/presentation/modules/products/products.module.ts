@@ -6,6 +6,7 @@ import { TableComponent } from 'src/app/ui/table/table.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ConfirmModalComponent } from 'src/app/ui/confirm-modal/confirm-modal.component';
+import { InputComponent } from 'src/app/ui/input/input.component';
 
 @NgModule({
   declarations: [ProductsListComponent, ProductFormComponent],
@@ -15,7 +16,8 @@ import { ConfirmModalComponent } from 'src/app/ui/confirm-modal/confirm-modal.co
     FormsModule,
     SearchComponent,
     TableComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    InputComponent
   ],
   exports: [ProductsListComponent, ProductFormComponent],
 })

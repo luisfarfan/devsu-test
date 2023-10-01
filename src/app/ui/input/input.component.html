@@ -1,0 +1,25 @@
+<div class="w-full px-2 mb-4 input-wrapper">
+  <label class="block mb-2" [for]="inputId">{{ label }}</label>
+  <input
+    [type]="type"
+    [formControl]="control"
+    [id]="inputId"
+    [placeholder]="placeholder"
+    [ngClass]="{ 'border-red-500': control.invalid && control.touched }"
+    class="border p-2 rounded w-full"
+  />
+  <div *ngIf="control.invalid && control.touched" class="text-red-500 text-sm">
+    <p *ngIf="control.errors?.['required']">{{ label }} es requerido.</p>
+    <p *ngIf="control.errors?.['minLength']">
+      El mínimo de caracteres permitidos es
+      {{ control.errors?.['minLength'].requiredLength }}.
+    </p>
+    <p *ngIf="control.errors?.['maxLength']">
+      El máximo de caracteres permitidos es
+      {{ control.errors?.['maxLength'].requiredLength }}.
+    </p>
+    <p *ngIf="control.errors?.['idExists']">
+      El ID ya existe, por favor ingrese otro.
+    </p>
+  </div>
+</div>

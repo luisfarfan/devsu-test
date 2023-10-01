@@ -9,72 +9,64 @@
     class="flex flex-wrap -mx-2"
   >
     <!-- Div con label e input -->
-    <div class="w-1/2 px-2 mb-4">
-      <label for="input-id" class="block mb-2">ID</label>
-      <input
+    <div class="w-1/2">
+      <app-input
         type="text"
-        formControlName="id"
-        id="input-id"
+        [control]="form.controls.id"
+        inputId="input-id"
         placeholder="ID"
-        class="border p-2 rounded w-full"
-      />
+        label="ID"
+      ></app-input>
     </div>
 
-    <div class="w-1/2 px-2 mb-4">
-      <label for="input-name" class="block mb-2">Nombre</label>
-      <input
+    <div class="w-1/2">
+      <app-input
         type="text"
-        formControlName="name"
-        id="input-name"
+        [control]="form.controls.name"
+        inputId="input-name"
         placeholder="Tarjeta de crédito"
-        class="border p-2 rounded w-full"
-      />
+        label="Nombre"
+      ></app-input>
     </div>
 
-    <div class="w-1/2 px-2 mb-4">
-      <label for="input1" class="block mb-2">Descripción</label>
-      <input
+    <div class="w-1/2">
+      <app-input
         type="text"
-        formControlName="description"
-        id="input1"
-        placeholder="Input 1"
-        class="border p-2 rounded w-full"
-      />
+        [control]="form.controls.description"
+        id="input-description"
+        placeholder="Descripción"
+        label="Descripción"
+      ></app-input>
     </div>
 
-    <div class="w-1/2 px-2 mb-4">
-      <label for="input-logo" class="block mb-2">Logo</label>
-      <input
+    <div class="w-1/2">
+      <app-input
         type="text"
-        formControlName="logo"
-        id="input-logo"
-        placeholder="image.png"
-        class="border p-2 rounded w-full"
-      />
+        [control]="form.controls.logo"
+        inputId="input-logo"
+        placeholder="Logo"
+        label="Logo"
+      ></app-input>
     </div>
 
-    <div class="w-1/2 px-2 mb-4">
-      <label for="input-date-release" class="block mb-2"
-        >Fecha liberación</label
-      >
-      <input
+    <div class="w-1/2">
+      <app-input
         type="date"
-        formControlName="date_release"
-        id="input-date-release"
-        placeholder="22/02/2023"
-        class="border p-2 rounded w-full"
-      />
+        [control]="form.controls.date_release"
+        inputId="input-release"
+        placeholder="Fecha liberación"
+        label="Fecha liberación"
+      ></app-input>
     </div>
 
-    <div class="w-1/2 px-2 mb-4">
-      <label for="input-date-revision" class="block mb-2">Fecha revisión</label>
-      <input
+    <div class="w-1/2">
+      <app-input
         type="date"
-        formControlName="date_revision"
-        id="input-date-revision"
-        placeholder="22/02/2024"
-        class="border p-2 rounded w-full"
-      />
+        [control]="form.controls.date_revision"
+        inputId="input-revision"
+        placeholder="Fecha revisión"
+        label="Fecha revisión"
+      ></app-input>
     </div>
 
     <div class="flex justify-center space-x-4 w-full">

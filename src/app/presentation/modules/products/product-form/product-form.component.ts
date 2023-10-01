@@ -113,5 +113,6 @@ export class ProductFormComponent implements OnChanges {
       date_revision: formatIsoDate(product.date_revision),
     };
     this.form.patchValue(parsedDatesProduct);
+    this.form.controls.id.disable();
   }
 }
