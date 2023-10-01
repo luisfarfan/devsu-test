@@ -28,6 +28,11 @@ export class ProductsListComponent implements OnChanges {
       label: 'ID',
     },
     {
+      accesor: 'logo',
+      label: 'Logo',
+      type: 'image',
+    },
+    {
       accesor: 'name',
       label: 'Nombre del producto',
     },
@@ -38,10 +43,12 @@ export class ProductsListComponent implements OnChanges {
     {
       accesor: 'date_release',
       label: 'Fecha de liberación',
+      type: 'date',
     },
     {
       accesor: 'date_revision',
       label: 'Fecha de reestructuración',
+      type: 'date',
     },
   ];
 

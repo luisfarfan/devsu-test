@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableHeader } from './ui-table.models';
+import { ParseColumnTypePipe } from '../pipes/parse-column-type.pipe';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ParseColumnTypePipe],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })

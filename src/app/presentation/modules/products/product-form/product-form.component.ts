@@ -1,11 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { CreateProductService } from 'src/app/core/application/create-product.service';
 import { EditProductService } from 'src/app/core/application/edit-product.service';
 import { VerifyProductService } from 'src/app/core/application/verify-product.service';
 import { Product } from 'src/app/core/domain';
+import { formatIsoDate } from 'src/app/presentation/shared/utils';
 import { validateIfValidProductId } from 'src/app/presentation/shared/validators/form.validators';
 import { environment } from 'src/environments/environment';
 
@@ -109,19 +109,9 @@ export class ProductFormComponent implements OnChanges {
   setProduct(product: Product) {
     const parsedDatesProduct = {
       ...product,
-      date_release: this.formatDate(product.date_release),
-      date_revision: this.formatDate(product.date_revision),
+      date_release: formatIsoDate(product.date_release),
+      date_revision: formatIsoDate(product.date_revision),
     };
     this.form.patchValue(parsedDatesProduct);
-  }
-
-  formatDate(isoString: string) {
-    const date = new Date(isoString);
-
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11, por lo que sumamos 1.
-    const year = date.getUTCFullYear();
-
-    return `${year}-${month}-${day}`;
   }
 }
