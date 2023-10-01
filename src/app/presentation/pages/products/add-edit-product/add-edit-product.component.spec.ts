@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddEditProductComponent } from './add-edit-product.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ProductRepository } from 'src/app/core/adapters';
+import { MockProductRepositoryService } from 'src/app/core/infraestructure/repositories/mock-product.repository.service';
 
 describe('AddEditProductComponent', () => {
   let component: AddEditProductComponent;
@@ -8,7 +11,14 @@ describe('AddEditProductComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AddEditProductComponent]
+      imports: [AddEditProductComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        {
+          provide: ProductRepository,
+          useClass: MockProductRepositoryService,
+        },
+      ],
     });
     fixture = TestBed.createComponent(AddEditProductComponent);
     component = fixture.componentInstance;

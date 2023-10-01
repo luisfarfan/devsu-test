@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsModule } from 'src/app/presentation/modules/products/products.module';
 import { GetProductsService } from 'src/app/core/application/get-products.service';
@@ -14,7 +20,7 @@ import { Product } from 'src/app/core/domain';
   templateUrl: './products-list-page.component.html',
   styleUrls: ['./products-list-page.component.scss'],
 })
-export class ProductsListPageComponent implements AfterViewInit {
+export class ProductsListPageComponent implements OnInit {
   private loadSubject = new Subject<void>();
 
   openModal = false;
@@ -30,8 +36,10 @@ export class ProductsListPageComponent implements AfterViewInit {
     private deleteProductsService: DeleteProductService
   ) {}
 
-  ngAfterViewInit(): void {
-    this.loadProducts();
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.loadProducts();
+    });
   }
 
   loadProducts(): void {
