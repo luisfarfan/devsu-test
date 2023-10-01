@@ -10,6 +10,7 @@ import { Product } from 'src/app/core/domain';
 import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
 import { ProductRepository } from 'src/app/core/adapters';
 import { MockProductRepositoryService } from 'src/app/core/infraestructure/repositories/mock-product.repository.service';
+import { formatIsoDate } from 'src/app/presentation/shared/utils';
 
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
@@ -134,7 +135,7 @@ describe('ProductFormComponent', () => {
 
   it('should format date correctly', () => {
     const isoString = '2022-01-01T00:00:00.000Z';
-    const formattedDate = component.formatDate(isoString);
+    const formattedDate = formatIsoDate(isoString);
     expect(formattedDate).toBe('2022-01-01');
   });
 });
