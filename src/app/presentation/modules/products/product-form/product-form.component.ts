@@ -1,9 +1,12 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { CreateProductService } from 'src/app/core/application/create-product.service';
 import { EditProductService } from 'src/app/core/application/edit-product.service';
+import { VerifyProductService } from 'src/app/core/application/verify-product.service';
 import { Product } from 'src/app/core/domain';
+import { validateIfValidProductId } from 'src/app/presentation/shared/validators/form.validators';
 import { environment } from 'src/environments/environment';
 
 const DEFAULT_LOGO = environment.defaultLogo;
@@ -24,8 +27,11 @@ export class ProductFormComponent implements OnChanges {
     private fb: NonNullableFormBuilder,
     private createProductService: CreateProductService,
     private editProductService: EditProductService,
+    private verifyProductService: VerifyProductService,
     private router: Router
-  ) {}
+  ) {
+    
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['product'] && this.product) {
@@ -42,6 +48,7 @@ export class ProductFormComponent implements OnChanges {
           Validators.minLength(3),
           Validators.maxLength(10),
         ],
+        [validateIfValidProductId(this.verifyProductService)],
       ],
       name: [
         '',

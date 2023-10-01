@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductRepository } from '../../adapters';
 import { Product } from '../../domain';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { ProductEndpoints } from '../config/product.endpoints';
 
 @Injectable({
@@ -57,6 +57,17 @@ export class ApiProductRepository extends ProductRepository {
       .pipe(
         map(() => {
           return {} as unknown as Product;
+        })
+      );
+  }
+
+  override verifyProductId(id: string): Observable<boolean> {
+    const requestOptions = this._createAuthorHeader();
+    return this.http
+      .get<boolean>(ProductEndpoints.verifyId(id), requestOptions)
+      .pipe(
+        tap((response) => {
+          console.log(response);
         })
       );
   }

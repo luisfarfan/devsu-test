@@ -6,4 +6,5 @@ export class ProductEndpoints {
   static readonly create = `${environment.baseUrl}`;
   static readonly update = () => `${environment.baseUrl}`;
   static readonly delete = (id: string) => `${environment.baseUrl}?id=${id}`;
+  static readonly verifyId = (id: string) => `${environment.baseUrl}/verification?id=${id}`;
 }

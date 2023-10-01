@@ -5,6 +5,11 @@ import { Product } from '../../domain';
 
 @Injectable()
 export class MockProductRepositoryService extends ProductRepository {
+
+  constructor() {
+    super();
+  }
+
   override getProducts(): Observable<Product[]> {
     return of([]);
   }
@@ -17,7 +22,8 @@ export class MockProductRepositoryService extends ProductRepository {
   override deleteProduct(id: string): Observable<Product> {
     return of({} as Product);
   }
-  constructor() {
-    super();
+
+  override verifyProductId(id: string): Observable<boolean> {
+    return of(true);
   }
 }
