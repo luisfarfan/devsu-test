@@ -9,7 +9,7 @@ import { TableHeader } from './ui-table.models';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent<T> {
+export class TableComponent<T = any> {
   @Input() data: T[] | null = [];
   @Input() headers: TableHeader<T>[] | null = [];
 

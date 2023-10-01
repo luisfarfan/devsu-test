@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsModule } from 'src/app/presentation/modules/products/products.module';
 import { GetProductsService } from 'src/app/core/application/get-products.service';
 import { DeleteProductService } from 'src/app/core/application/delete-product.service';
-import { Subject, switchMap } from 'rxjs';
+import { Subject, switchMap, startWith } from 'rxjs';
 import { ConfirmModalComponent } from 'src/app/ui/confirm-modal/confirm-modal.component';
 import { Product } from 'src/app/core/domain';
 
@@ -14,23 +14,23 @@ import { Product } from 'src/app/core/domain';
   templateUrl: './products-list-page.component.html',
   styleUrls: ['./products-list-page.component.scss'],
 })
-export class ProductsListPageComponent implements OnInit {
+export class ProductsListPageComponent implements AfterViewInit {
   private loadSubject = new Subject<void>();
 
   openModal = false;
 
   selectedProduct: Product | null = null;
 
-  $products = this.loadSubject
-    .asObservable()
-    .pipe(switchMap(() => this.getProductsService.execute()));
+  $products = this.loadSubject.pipe(
+    switchMap(() => this.getProductsService.execute())
+  );
 
   constructor(
     private getProductsService: GetProductsService,
     private deleteProductsService: DeleteProductService
   ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.loadProducts();
   }
 
@@ -47,6 +47,7 @@ export class ProductsListPageComponent implements OnInit {
     this.deleteProductsService
       .execute(this.selectedProduct?.id as string)
       .subscribe(() => {
+        console.log('Product deleted');
         this.loadProducts();
       });
   }

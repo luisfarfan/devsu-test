@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductRepository } from '../../adapters';
 import { Product } from '../../domain';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ProductEndpoints } from '../config/product.endpoints';
 
 @Injectable({
@@ -48,9 +48,16 @@ export class ApiProductRepository extends ProductRepository {
 
   override deleteProduct(id: string): Observable<Product> {
     const requestOptions = this._createAuthorHeader();
-    return this.http.delete<Product>(
-      ProductEndpoints.delete(id),
-      requestOptions
-    );
+    return this.http
+      .delete<Product>(ProductEndpoints.delete(id), {
+        ...requestOptions,
+        observe: 'response',
+        responseType: 'text' as 'json',
+      })
+      .pipe(
+        map(() => {
+          return {} as unknown as Product;
+        })
+      );
   }
 }

@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { CreateProductService } from 'src/app/core/application/create-product.service';
 import { EditProductService } from 'src/app/core/application/edit-product.service';
 import { Product } from 'src/app/core/domain';
+import { environment } from 'src/environments/environment';
+
+const DEFAULT_LOGO = environment.defaultLogo;
 
 @Component({
   selector: 'app-product-form',
@@ -56,7 +59,7 @@ export class ProductFormComponent implements OnChanges {
           Validators.maxLength(10),
         ],
       ],
-      logo: ['', Validators.required],
+      logo: [DEFAULT_LOGO, Validators.required],
       date_release: ['', [Validators.required]],
       date_revision: ['', [Validators.required]],
     });
