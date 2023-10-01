@@ -6,10 +6,16 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { ProductRepository } from './app/core/adapters';
 import { ApiProductRepository } from './app/core/infraestructure/repositories/api-product.repository';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
+import { headersInterceptor } from './app/core/infraestructure/interceptors/header.interceptors';
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideHttpClient(withInterceptors([headersInterceptor])),
     {
       provide: ProductRepository,
       useClass: ApiProductRepository,

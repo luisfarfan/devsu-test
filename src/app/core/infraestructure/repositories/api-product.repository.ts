@@ -13,44 +13,21 @@ export class ApiProductRepository extends ProductRepository {
     super();
   }
 
-  private _createAuthorHeader() {
-    const headers = new HttpHeaders({
-      authorId: 50,
-    });
-
-    const requestOptions = { headers: headers };
-
-    return requestOptions;
-  }
-
   override getProducts(): Observable<Product[]> {
-    const requestOptions = this._createAuthorHeader();
-    return this.http.get<Product[]>(ProductEndpoints.getAll, requestOptions);
+    return this.http.get<Product[]>(ProductEndpoints.getAll);
   }
 
   override createProduct(product: Product): Observable<Product> {
-    const requestOptions = this._createAuthorHeader();
-    return this.http.post<Product>(
-      ProductEndpoints.create,
-      product,
-      requestOptions
-    );
+    return this.http.post<Product>(ProductEndpoints.create, product);
   }
 
   override editProduct(product: Product): Observable<Product> {
-    const requestOptions = this._createAuthorHeader();
-    return this.http.put<Product>(
-      ProductEndpoints.update(),
-      product,
-      requestOptions
-    );
+    return this.http.put<Product>(ProductEndpoints.update(), product);
   }
 
   override deleteProduct(id: string): Observable<Product> {
-    const requestOptions = this._createAuthorHeader();
     return this.http
       .delete<Product>(ProductEndpoints.delete(id), {
-        ...requestOptions,
         observe: 'response',
         responseType: 'text' as 'json',
       })
@@ -62,13 +39,10 @@ export class ApiProductRepository extends ProductRepository {
   }
 
   override verifyProductId(id: string): Observable<boolean> {
-    const requestOptions = this._createAuthorHeader();
-    return this.http
-      .get<boolean>(ProductEndpoints.verifyId(id), requestOptions)
-      .pipe(
-        tap((response) => {
-          console.log(response);
-        })
-      );
+    return this.http.get<boolean>(ProductEndpoints.verifyId(id)).pipe(
+      tap((response) => {
+        console.log(response);
+      })
+    );
   }
 }

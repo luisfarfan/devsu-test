@@ -51,7 +51,6 @@ describe('ApiProductRepository', () => {
 
     const req = httpMock.expectOne(ProductEndpoints.getAll);
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('authorId')).toBe('50');
 
     req.flush(expectedProducts);
   });
@@ -72,7 +71,6 @@ describe('ApiProductRepository', () => {
 
     const req = httpMock.expectOne(ProductEndpoints.create);
     expect(req.request.method).toBe('POST');
-    expect(req.request.headers.get('authorId')).toBe('50');
     expect(req.request.body).toEqual(mockProduct);
 
     req.flush(mockProduct);
@@ -94,7 +92,6 @@ describe('ApiProductRepository', () => {
 
     const req = httpMock.expectOne(ProductEndpoints.update());
     expect(req.request.method).toBe('PUT');
-    expect(req.request.headers.get('authorId')).toBe('50');
     expect(req.request.body).toEqual(mockProduct);
 
     req.flush(mockProduct);
@@ -116,7 +113,6 @@ describe('ApiProductRepository', () => {
 
     const req = httpMock.expectOne(ProductEndpoints.delete(mockProduct.id));
     expect(req.request.method).toBe('DELETE');
-    expect(req.request.headers.get('authorId')).toBe('50');
     expect(req.request.body).toEqual(null);
 
     req.flush(mockProduct);
@@ -138,7 +134,6 @@ describe('ApiProductRepository', () => {
 
     const req = httpMock.expectOne(ProductEndpoints.verifyId(mockProduct.id));
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('authorId')).toBe('50');
     expect(req.request.body).toEqual(null);
 
     req.flush(true);
