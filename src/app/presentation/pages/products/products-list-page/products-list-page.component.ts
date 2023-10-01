@@ -55,7 +55,6 @@ export class ProductsListPageComponent implements OnInit {
     this.deleteProductsService
       .execute(this.selectedProduct?.id as string)
       .subscribe(() => {
-        console.log('Product deleted');
         this.loadProducts();
       });
   }

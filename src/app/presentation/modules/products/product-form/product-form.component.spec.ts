@@ -1,16 +1,15 @@
+import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductFormComponent } from './product-form.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
+import { ProductRepository } from 'src/app/core/adapters';
 import { CreateProductService } from 'src/app/core/application/create-product.service';
 import { EditProductService } from 'src/app/core/application/edit-product.service';
 import { VerifyProductService } from 'src/app/core/application/verify-product.service';
-import { Product } from 'src/app/core/domain';
-import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
-import { ProductRepository } from 'src/app/core/adapters';
 import { MockProductRepositoryService } from 'src/app/core/infraestructure/repositories/mock-product.repository.service';
 import { formatIsoDate } from 'src/app/presentation/shared/utils';
+import { ProductFormComponent } from './product-form.component';
 
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;

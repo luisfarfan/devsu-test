@@ -20,4 +20,22 @@ describe('SearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should use default debounceTime of 250ms when no debounceTime input is provided', () => {
+    expect(component.debounceTime).toBe(250);
+  });
+
+  it('should validate emit last debounce value', () => {
+    component.searchControl.setValue('value1');
+    component.searchControl.setValue('value2');
+    component.searchControl.setValue('value3');
+
+    const spyEmit = spyOn(component.search, 'emit').withArgs('value3').and.callThrough();
+
+    // Wait for debounce time to pass
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(spyEmit).toHaveBeenCalledWith('value3');
+    });
+  });
 });
