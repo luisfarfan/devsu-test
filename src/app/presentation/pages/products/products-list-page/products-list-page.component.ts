@@ -1,17 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsModule } from 'src/app/presentation/modules/products/products.module';
 import { GetProductsService } from 'src/app/core/application/get-products.service';
+import { DeleteProductService } from 'src/app/core/application/delete-product.service';
+import { Subject, switchMap } from 'rxjs';
+import { ConfirmModalComponent } from 'src/app/ui/confirm-modal/confirm-modal.component';
+import { Product } from 'src/app/core/domain';
 
 @Component({
   selector: 'app-products-list-page',
   standalone: true,
-  imports: [CommonModule, ProductsModule],
+  imports: [CommonModule, ProductsModule, ConfirmModalComponent],
   templateUrl: './products-list-page.component.html',
   styleUrls: ['./products-list-page.component.scss'],
 })
-export class ProductsListPageComponent {
-  $products = this.getProductsService.execute();
+export class ProductsListPageComponent implements OnInit {
+  private loadSubject = new Subject<void>();
 
-  constructor(private getProductsService: GetProductsService) {}
+  openModal = false;
+
+  selectedProduct: Product | null = null;
+
+  $products = this.loadSubject
+    .asObservable()
+    .pipe(switchMap(() => this.getProductsService.execute()));
+
+  constructor(
+    private getProductsService: GetProductsService,
+    private deleteProductsService: DeleteProductService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.loadSubject.next();
+  }
+
+  openModalToDeleteProduct(product: Product) {
+    this.openModal = true;
+    this.selectedProduct = product;
+  }
+
+  deleteProduct() {
+    this.deleteProductsService
+      .execute(this.selectedProduct?.id as string)
+      .subscribe(() => {
+        this.loadProducts();
+      });
+  }
 }

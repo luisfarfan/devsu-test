@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableHeader } from './ui-table.models';
 
@@ -12,4 +12,7 @@ import { TableHeader } from './ui-table.models';
 export class TableComponent<T> {
   @Input() data: T[] | null = [];
   @Input() headers: TableHeader<T>[] | null = [];
+
+  @Output() edit: EventEmitter<T> = new EventEmitter<T>();
+  @Output() delete: EventEmitter<T> = new EventEmitter<T>();
 }

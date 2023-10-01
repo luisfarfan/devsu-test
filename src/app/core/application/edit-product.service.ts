@@ -8,7 +8,7 @@ import { Product } from '../domain';
 export class EditProductService {
   constructor(private productRepository: ProductRepository) {}
 
-  execute(id: string, product: Product) {
-    return this.productRepository.editProduct(id, product);
+  execute(product: Product) {
+    return this.productRepository.editProduct(product);
   }
 }

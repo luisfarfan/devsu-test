@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/core/domain';
 import { TableHeader } from 'src/app/ui/table/ui-table.models';
 
@@ -37,6 +45,10 @@ export class ProductsListComponent implements OnChanges {
     },
   ];
 
+  @Output() deleteProduct: EventEmitter<Product> = new EventEmitter<Product>();
+
+  constructor(private router: Router) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['products'] && this.products?.length) {
       this.filteredProducts = [...this.products];
@@ -44,7 +56,6 @@ export class ProductsListComponent implements OnChanges {
   }
 
   filterProducts(querySearch: string) {
-    console.log(querySearch)
     this.querySearch = querySearch;
     if (this.products?.length) {
       this.filteredProducts = this.querySearch
@@ -55,5 +66,13 @@ export class ProductsListComponent implements OnChanges {
           })
         : [...this.products];
     }
+  }
+
+  goToCreate() {
+    this.router.navigate(['create']);
+  }
+
+  goToEdit(product: Product) {
+    this.router.navigate(['edit', product.id], { state: { product } });
   }
 }

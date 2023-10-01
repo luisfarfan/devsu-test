@@ -37,10 +37,10 @@ export class ApiProductRepository extends ProductRepository {
     );
   }
 
-  override editProduct(id: string, product: Product): Observable<Product> {
+  override editProduct(product: Product): Observable<Product> {
     const requestOptions = this._createAuthorHeader();
     return this.http.put<Product>(
-      ProductEndpoints.update(id),
+      ProductEndpoints.update(),
       product,
       requestOptions
     );
