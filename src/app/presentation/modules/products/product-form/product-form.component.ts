@@ -29,9 +29,7 @@ export class ProductFormComponent implements OnChanges {
     private editProductService: EditProductService,
     private verifyProductService: VerifyProductService,
     private router: Router
-  ) {
-    
-  }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['product'] && this.product) {
@@ -87,18 +85,20 @@ export class ProductFormComponent implements OnChanges {
   createProduct() {
     if (this.form.valid) {
       const product = this.form.getRawValue();
-      this.createProductService
-        .execute(product)
-        .subscribe(() => (this.modalOpened = false));
+      this.createProductService.execute(product).subscribe(() => {
+        this.modalOpened = false;
+        this.goToList();
+      });
     }
   }
 
   editProduct() {
     if (this.form.valid) {
       const product = this.form.getRawValue();
-      this.editProductService
-        .execute(product)
-        .subscribe(() => (this.modalOpened = false));
+      this.editProductService.execute(product).subscribe(() => {
+        this.modalOpened = false;
+        this.goToList();
+      });
     }
   }
 
